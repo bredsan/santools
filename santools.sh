@@ -8,7 +8,7 @@ show_progress() {
   local -r msg="$1"
   local -r pid="$2"
   local -r delay='0.75'
-  local spinstr='\|/-'
+  local spinstr='|/-\\'
   local temp
 
   echo -n "$msg"
@@ -48,7 +48,7 @@ install_dependencies() {
 fetch_config() {
   echo "Baixando arquivo de configuração..."
   curl -fsSL "$CONFIG_URL" -o /tmp/santools.conf
-  source /tmp/santools.conf
+  . /tmp/santools.conf
 }
 
 # Função para instalar uma ferramenta específica
