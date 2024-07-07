@@ -56,7 +56,7 @@ try_santools() {
 fetch_config() {
   echo "Baixando arquivo de configuração..."
   curl -fsSL "$CONFIG_URL" -o /tmp/santools.conf
-  . /tmp/santools.conf
+  bash -c "source /tmp/santools.conf"
 }
 
 # Função principal de instalação
