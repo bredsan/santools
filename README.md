@@ -4,4 +4,4 @@
     # EM BREVE
     
 # Linux
-    curl -fsSL https://raw.githubusercontent.com/bredsan/santools/main/install_santools.sh | sh
+    curl -fsSL https://raw.githubusercontent.com/bredsan/santools/dev/install_santools.sh | sh
