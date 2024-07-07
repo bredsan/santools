@@ -48,7 +48,7 @@ install_dependencies() {
 fetch_config() {
   echo "Baixando arquivo de configuração..."
   curl -fsSL "$CONFIG_URL" -o /tmp/santools.conf
-  source /tmp/santools.conf
+  . /tmp/santools.conf
 }
 
 # Função para instalar uma ferramenta específica
