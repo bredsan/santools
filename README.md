@@ -1,5 +1,7 @@
-# hub
+# Instalação
 
-# Description
-
-A basic hub to interconnect your cli enviroments.
+# Windows
+    iwr https://raw.githubusercontent.com/bredsan/santools/main/install.ps1 | iex
+    
+# Linux
+    curl -fsSL https://raw.githubusercontent.com/bredsan/santools/main/install.sh | sh
