@@ -70,8 +70,31 @@ install_santools() {
   echo "santools instalada com sucesso."
 }
 
-# Executar
-try_santools
-fetch_config
-install_dependencies
-install_santools
+# Função para desinstalar santools
+uninstall_santools() {
+  echo "Desinstalando santools..."
+  sudo rm -f /usr/local/bin/santools
+  echo "santools desinstalada com sucesso."
+}
+
+# Função para mostrar o uso do script
+usage() {
+  echo "Uso: $0 [install|uninstall]"
+  exit 1
+}
+
+# Verifica o argumento passado
+case "$1" in
+  install)
+    try_santools
+    fetch_config
+    install_dependencies
+    install_santools
+    ;;
+  uninstall)
+    uninstall_santools
+    ;;
+  *)
+    usage
+    ;;
+esac
