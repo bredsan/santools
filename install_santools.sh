@@ -9,13 +9,12 @@ show_progress() {
   pid="$2"
   delay='0.75'
   spinstr='|/-\\'
-  temp
+  i=0
 
   echo -n "$msg"
   while kill -0 "$pid" 2>/dev/null; do
-    temp="${spinstr#?}"
-    printf " [%c]  " "$spinstr"
-    spinstr=$temp${spinstr%"$temp"}
+    i=$(( (i+1) % 4 ))
+    printf " [%c]  " "${spinstr:$i:1}"
     sleep "$delay"
     printf "\b\b\b\b\b\b"
   done
@@ -60,6 +59,9 @@ fetch_config() {
 # Função principal de instalação
 install_santools() {
   echo "Instalando santools..."
+  if [ -d "/tmp/santools" ]; then
+    rm -rf /tmp/santools
+  fi
   git clone -b dev https://github.com/bredsan/santools.git /tmp/santools &
   show_progress "Baixando santools" $!
   sudo mv /tmp/santools/santools.sh /usr/local/bin/santools &
