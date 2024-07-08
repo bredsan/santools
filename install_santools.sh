@@ -8,19 +8,16 @@ show_progress() {
   msg="$1"
   pid="$2"
   delay='0.75'
-  spinstr='|/-\'
+  spinstr='|/-\\'
   temp
 
   echo -n "$msg"
-  while true; do
+  while kill -0 "$pid" 2>/dev/null; do
     temp="${spinstr#?}"
     printf " [%c]  " "$spinstr"
     spinstr=$temp${spinstr%"$temp"}
     sleep "$delay"
     printf "\b\b\b\b\b\b"
-    if ! kill -0 "$pid" 2>/dev/null; then
-      break
-    fi
   done
   printf "    \b\b\b\b"
   echo ""
@@ -36,6 +33,7 @@ install_dependencies() {
   for dep in $DEPENDENCIES; do
     if ! check_dependency "$dep"; then
       echo "Instalando dependência: $dep"
+      sudo apt-get update -y
       sudo apt-get install -y "$dep" &
       show_progress "Instalando $dep" $!
     else
@@ -62,11 +60,11 @@ fetch_config() {
 # Função principal de instalação
 install_santools() {
   echo "Instalando santools..."
-  # Clonar a branch dev do repositório
   git clone -b dev https://github.com/bredsan/santools.git /tmp/santools &
   show_progress "Baixando santools" $!
-  sudo mv /tmp/santools/santools /usr/local/bin/santools &
+  sudo mv /tmp/santools/santools.sh /usr/local/bin/santools &
   show_progress "Movendo santools para /usr/local/bin" $!
+  sudo chmod +x /usr/local/bin/santools
   echo "santools instalada com sucesso."
 }
 
