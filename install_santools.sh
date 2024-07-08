@@ -1,15 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 
 # URL do arquivo de configuração no GitHub
 CONFIG_URL="https://raw.githubusercontent.com/bredsan/santools/dev/santools.conf"
 
 # Função para exibir barra de progresso
 show_progress() {
-  local -r msg="$1"
-  local -r pid="$2"
-  local -r delay='0.75'
-  local spinstr='|/-\\'
-  local temp
+  msg="$1"
+  pid="$2"
+  delay='0.75'
+  spinstr='|/-\'
+  temp
 
   echo -n "$msg"
   while true; do
@@ -33,7 +33,7 @@ check_dependency() {
 
 # Função para instalar dependências
 install_dependencies() {
-  for dep in "${DEPENDENCIES[@]}"; do
+  for dep in $DEPENDENCIES; do
     if ! check_dependency "$dep"; then
       echo "Instalando dependência: $dep"
       sudo apt-get install -y "$dep" &
@@ -56,7 +56,7 @@ try_santools() {
 fetch_config() {
   echo "Baixando arquivo de configuração..."
   curl -fsSL "$CONFIG_URL" -o /tmp/santools.conf
-  bash -c "source /tmp/santools.conf"
+  . /tmp/santools.conf
 }
 
 # Função principal de instalação
